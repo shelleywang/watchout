@@ -5,3 +5,15 @@ Feel free to use it if you like. */
 body {
   height: 1000px;
 }
+
+.asteroid {
+  height: 100px;
+  width: 100px;
+  border: 2px solid red;
+  display: inline-block;
+  position: absolute;
+}
+
+.asteroids {
+  height: 100%;
+}
