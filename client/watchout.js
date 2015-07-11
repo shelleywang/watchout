@@ -26,6 +26,35 @@ var svg = d3.select("body").append("svg")
     .attr("height", '90%')
   .append("g");
 
+
+
+// STYLING JELLYFISH TEST
+
+// var defs= svg.append('defs')
+// defs.append('pattern')
+//     .attr('id', 'fish')
+//     .attr('patternUnits', 'userSpaceOnUse')
+//     .attr('width', 160) //160
+//     .attr('height', 150) //150
+//   .append('svg:image')
+//     .attr('xlink:href', 'http://orig11.deviantart.net/d50e/f/2012/356/0/0/jellyfish_icon_by_piirustus-d5ost8i.gif')
+//     .attr("width", 70) //150
+//     .attr("height", 70) //150
+//     .attr('x',65) //20
+//     .attr('y',65); //20
+
+
+
+// svg.append("circle")
+//     .attr("r",'60') //75
+//     .attr('cx',100)
+//     .attr('cy',100)
+//     .attr('stroke',"black") 
+//     .attr('stroke-width',"3")
+//     .attr("fill", "url(#fish)");
+
+// TEST
+
 // places asteroids onto the body
 //var asteroids = d3.select('body').selectAll('.asteroids');
 var generateAsteroids = function() {
@@ -34,7 +63,8 @@ var generateAsteroids = function() {
     .classed('asteroid', true)
     .attr('cx', function(d, i) { return d.x + 'px'; })
     .attr('cy', function(d) { return d.y + 'px';})
-    .attr('r', 20);
+    .attr('r', 20)
+    .attr('fill','white');
 };
 
 
@@ -54,13 +84,43 @@ setInterval(function() {moveAsteroids();},2100);
 
 // PLAYER STUFF
 
+// TEST
+
+var defs= svg.append('defs')
+defs.append('pattern')
+    .attr('id', 'fish')
+    .attr('patternUnits', 'userSpaceOnUse')
+    .attr('width', 150) //160
+    .attr('height', 150) //150
+    .attr('x',-50)
+    .attr('y',-50)
+  .append('svg:image')
+    .attr('xlink:href', 'https://38.media.tumblr.com/adb56cc7e2a2fbeaec8dfef1d409b543/tumblr_nn27cqMKDY1u4vod5o1_500.gif')
+    .attr("width", 70) //150
+    .attr("height", 70) //150
+    .attr('x',15) //20
+    .attr('y',15); //20
+
+// svg.append("circle")
+//     .attr("r",'30') //75
+//     .attr('cx',100)
+//     .attr('cy',100)
+//     .attr('stroke',"black") 
+//     .attr('stroke-width',"3")
+//     .attr("fill", "url(#fish)");
+
+// TEST
+
+
 var generatePlayer = function() {
   svg.selectAll('.player').data([generateRandomLocation()])
     .enter().append('circle')
     .classed('player', true)
     .attr("transform", function(d){return 'translate(' + d.x + ',' + d.y + ')'})
-    .attr('r', 15)
-    .style('fill', 'red');
+    .attr('r', 30)
+    .attr('cx',0)
+    .attr('cy',0)
+    .attr("fill", "url(#fish)");
 };
 
 var drag = d3.behavior.drag().on("drag", dragmove);

@@ -3,13 +3,17 @@
 /* Note: an asteroid image is included in this repo.
 Feel free to use it if you like. */
 body {
+  font-family: 'Lobster Two';
   height: 100%;
   width: 100%;
   position: absolute;
+  background-color: #668EFA;
 }
 
 .scoreboard {
-  background-color: lightblue;
+  color:white;
+  background-color: #19388C;
+  text-align: center;
   padding: 5px;
-  height: 75px;
+  height: 60px;
 }
