@@ -39,18 +39,19 @@ var generateAsteroids = function() {
 };
 
 
-var moveAsteroids = function() {
-  var asteroids = d3.selectAll('.asteroid');
-  asteroids.data(generateLocations());
-  asteroids.transition().duration(2000)
-    .attr('x', function(d, i) { return d.x + 'px'; })
-    .attr('y', function(d) { return d.y + 'px';});
+var moveAsteroids = function(element) {
+  // var asteroids = d3.selectAll('.asteroid');
+  element.transition().duration(2000)
+    .attr('x', function(d, i) { return generateRandomLocation().x + 'px'; })
+    .attr('y', function(d) { return generateRandomLocation().y + 'px';})
+    .each('end', function() {
+      moveAsteroids( d3.select(this));
+    } );
 };
-
 
 // Initial setup
 generateAsteroids();
-setInterval(function() {moveAsteroids();},2100);
+moveAsteroids(d3.selectAll('.asteroid'));
 
 
 // PLAYER STUFF
@@ -82,6 +83,7 @@ d3.selectAll('.player').call(drag);
 // COLLISION STUFF
 
 window.collisionCounter = 0;
+window.prevCollision = false;
 window.highScore = 0;
 window.currentScore = 0;
 
@@ -91,7 +93,7 @@ var findCollisions = function() {
   var playerX = d3.transform(d3.select('.player').attr("transform")).translate[0] ; 
   var playerY = d3.transform(d3.select('.player').attr("transform")).translate[1] ;
 
-  var numCollisions = 0;
+  var collision = false;
   // loop over array of asteroids
   asteroids.each(function(asteroid) {
     // find centerpoint of asteroid
@@ -105,29 +107,34 @@ var findCollisions = function() {
     var overlappingY = Math.abs(playerY - asteroidY) < 60;
     
     if (overlappingX && overlappingY) {
-      numCollisions = 1;
+      collision = true;
     }
-
   });
-  return numCollisions;
+
+  if (collision) {
+    if (prevCollision !== collision) {
+      collisionCounter ++;
+    }
+  }
+  prevCollision = collision;
 }
+
+d3.timer(findCollisions);
 
 
 // run the loop forever 
 setInterval(function() {
-  var numCollisions = findCollisions();
-  collisionCounter += numCollisions;
   d3.selectAll('.collisions').selectAll('span').text(function () {return collisionCounter;});
   if (currentScore > highScore) {
     highScore = currentScore;
     d3.selectAll('.high').selectAll('span').text(function () {return highScore;});
   }
-  if (numCollisions === 0) {
+  if (!prevCollision) {
     currentScore++;
   } else {
     currentScore = 0;
   }
   d3.selectAll('.current').selectAll('span').text(function () {return currentScore;});
-},50);
+},100);
 
 
