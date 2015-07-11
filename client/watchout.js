@@ -1,15 +1,14 @@
+//ASTEROID STUFF
+
+
 // function to create a set of asteroids
 window.numAsteroids = 10;
 
 var generateLocations = function() {
   var locations = [];
   for (var i = 0; i < window.numAsteroids; i ++) {
-    var location = {};
-    var body = d3.select("body");
     var newLocation = generateRandomLocation();
-    location.x = newLocation[0];
-    location.y = newLocation[1];
-    locations.push(location);
+    locations.push(newLocation);
   }
   return locations;
 };
@@ -17,7 +16,7 @@ var generateLocations = function() {
 var generateRandomLocation = function() {
   var x = (+d3.select('body').style('width').slice(0, -2) - 175) * Math.random() + 75; 
   var y = (+d3.select('body').style('height').slice(0, -2) - 175) * Math.random() + 70;
-  return [x,y];
+  return { x:x, y:y };
 }
 
 
@@ -47,9 +46,69 @@ var moveAsteroids = function() {
     .attr('cy', function(d) { return d.y + 'px';});
 };
 
+
+// Initial setup
 generateAsteroids();
 setInterval(function() {moveAsteroids();},2100);
 
-//setTimeout
-  //move all asteroids 
+
+// PLAYER STUFF
+
+var generatePlayer = function() {
+  svg.selectAll('.player').data([generateRandomLocation()])
+    .enter().append('circle')
+    .classed('player', true)
+    .attr('cx', function(d, i) { return d.x + 'px'; })
+    .attr('cy', function(d) { return d.y + 'px';})
+    .attr('r', 15)
+    .style('fill', 'red');
+};
+
+generatePlayer();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
