@@ -75,38 +75,24 @@ generatePlayer();
 d3.selectAll('.player').call(drag);
 
 
+// COLLISION STUFF
 
 
+// loop over array of asteroids
 
+  // compare player to asteroid
+    // find two centerpoints
+    // check player overlapping with asteroid
+      // absolute value of difference between player.x and asteroid.x < radii 
+      // absolute value of difference between player.y and asteroid.y < radii
 
+  // if collision, record final score 
+    // set score keeper back to zero
+    // if current recorded score is higher than high score
+        // set high score to current recorded score
+    // increment number of collisions 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// run the loop forever 
 
 
 
