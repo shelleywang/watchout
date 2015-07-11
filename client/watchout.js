@@ -77,12 +77,17 @@ d3.selectAll('.player').call(drag);
 
 // COLLISION STUFF
 
+window.collisionCounter = 0;
+window.highScore = 0;
+window.currentScore = 0;
+
 var findCollisions = function() {
   var asteroids = d3.selectAll('.asteroid');
   //find centerpoint of player
   var playerX = d3.transform(d3.select('.player').attr("transform")).translate[0]; 
   var playerY = d3.transform(d3.select('.player').attr("transform")).translate[1];
 
+  var numCollisions = 0;
   // loop over array of asteroids
   asteroids.each(function(asteroid) {
     // find centerpoint of asteroid
@@ -96,24 +101,29 @@ var findCollisions = function() {
     var overlappingY = Math.abs(playerY - asteroidY) < 35;
     
     if (overlappingX && overlappingY) {
-      
-
+      numCollisions = 1;
     }
-  // if collision, record final score 
-    // set score keeper back to zero
-    // if current recorded score is higher than high score
-        // set high score to current recorded score
-    // increment number of collisions 
-  });
 
+  });
+  return numCollisions;
 }
 
 
 // run the loop forever 
-
-
-
-
-
+setInterval(function() {
+  var numCollisions = findCollisions();
+  collisionCounter += numCollisions;
+  d3.selectAll('.collisions').selectAll('span').text(function () {return collisionCounter;});
+  if (currentScore > highScore) {
+    highScore = currentScore;
+    d3.selectAll('.high').selectAll('span').text(function () {return highScore;});
+  }
+  if (numCollisions === 0) {
+    currentScore++;
+  } else {
+    currentScore = 0;
+  }
+  d3.selectAll('.current').selectAll('span').text(function () {return currentScore;});
+},50);
 
 
