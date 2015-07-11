@@ -58,15 +58,21 @@ var generatePlayer = function() {
   svg.selectAll('.player').data([generateRandomLocation()])
     .enter().append('circle')
     .classed('player', true)
-    .attr('cx', function(d, i) { return d.x + 'px'; })
-    .attr('cy', function(d) { return d.y + 'px';})
+    .attr("transform", function(d){return 'translate(' + d.x + ',' + d.y + ')'})
     .attr('r', 15)
     .style('fill', 'red');
 };
 
+var drag = d3.behavior.drag().on("drag", dragmove);
+
+function dragmove(d) {
+  var x = d3.event.x;
+  var y = d3.event.y;
+  d3.select(this).attr("transform", "translate(" + x + "," + y + ")");
+}
+
 generatePlayer();
-
-
+d3.selectAll('.player').call(drag);
 
 
 
