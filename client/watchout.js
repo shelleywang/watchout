@@ -77,26 +77,39 @@ d3.selectAll('.player').call(drag);
 
 // COLLISION STUFF
 
+var findCollisions = function() {
+  var asteroids = d3.selectAll('.asteroid');
+  //find centerpoint of player
+  var playerX = d3.transform(d3.select('.player').attr("transform")).translate[0]; 
+  var playerY = d3.transform(d3.select('.player').attr("transform")).translate[1];
 
-// loop over array of asteroids
+  // loop over array of asteroids
+  asteroids.each(function(asteroid) {
+    // find centerpoint of asteroid
+    var asteroidX = asteroid.x;
+    var asteroidY = asteroid.y;
 
-  // compare player to asteroid
-    // find two centerpoints
-    // check player overlapping with asteroid
-      // absolute value of difference between player.x and asteroid.x < radii 
-      // absolute value of difference between player.y and asteroid.y < radii
+    // check if player is overlapping with asteroid
+    // absolute value of difference between player.x and asteroid.x < radii 
+    var overlappingX = Math.abs(playerX - asteroidX) < 35;
+    // absolute value of difference between player.y and asteroid.y < radii
+    var overlappingY = Math.abs(playerY - asteroidY) < 35;
+    
+    if (overlappingX && overlappingY) {
+      
 
+    }
   // if collision, record final score 
     // set score keeper back to zero
     // if current recorded score is higher than high score
         // set high score to current recorded score
     // increment number of collisions 
+  });
+
+}
+
 
 // run the loop forever 
-
-
-
-
 
 
 
